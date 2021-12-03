@@ -20,6 +20,10 @@ def moveEnnemies(cars):
         car.move()
 # Class for a CAR
 
+
+def draw_vertical_lines(screen):
+    pass
+
 class Car:
     
     def __init__(self,x,y):
@@ -35,9 +39,9 @@ class myCar(Car):
         super().__init__(x,y)
     
     def move(self,direction):
-        if direction=="left" and self.x > self.width :
+        if direction=="left" and self.x >= self.width :
             self.x = self.x - self.width
-        if direction == "right" and self.x < WIDTH - self.width :
+        if direction == "right" and self.x <= WIDTH - self.width :
             self.x = self.x + self.width
             
     
@@ -45,10 +49,7 @@ class ennemyCar(Car) :
     
     def __init__(self):
         super().__init__(0,0)
-        posx = random.randint(35,WIDTH-35)
-        posy = random.randint(-100,50)
-        self.x= posx
-        self.y = posy
+        self.reset()
         
     def move(self):
         self.y=self.y+5
@@ -56,8 +57,9 @@ class ennemyCar(Car) :
             self.reset()
     
     def reset(self):
-        posx = random.randint(35,WIDTH-35)
-        posy = random.randint(-100,-self.height)
+        nbRoads = (WIDTH//80)
+        posx = random.randint(0,nbRoads-1)*80
+        posy = random.randint(-300,-self.height)
         self.x= posx
         self.y = posy
     

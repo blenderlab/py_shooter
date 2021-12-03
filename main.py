@@ -12,7 +12,7 @@ SCREEN = initialiseScreen()
 clock = pygame.time.Clock()
 
 # let's create our brand new car !
-my_car = myCar(WIDTH//2, HEIGHT*0.8)
+my_car = myCar(80*3, HEIGHT*0.8)
 
 # let's add some bad boyz :
 ennemies = [] # array of ennemies
