@@ -18,8 +18,8 @@ my_car = myCar(80*3, HEIGHT*0.8)
 ennemies = [] # array of ennemies
 for _ in range(MAX_ENNEMIES):
     ennemies.append(ennemyCar())
-
-
+data=[]
+sampleCounter=0
 while 1 :
     # manage the speed :
     clock.tick(FRAME_RATE)
@@ -34,6 +34,17 @@ while 1 :
             if event.key == pygame.K_ESCAPE:
                 pygame.quit() # close pygame
                 raise SystemExit #for a system close  
+    
+    # Autopilot (sort of...) 
+    nextAction,alldistances = chooseNextMove(my_car,ennemies)
+    saveData(data,nextAction, my_car,alldistances)
+    my_car.move(nextAction)
+    
+    if sampleCounter == 2000:
+        writedata(data)
+    else :
+        sampleCounter=sampleCounter+1
+        print("Sample  ",sampleCounter, "/2000") 
     
     # fill the screen with black : 
     SCREEN.fill(0)
