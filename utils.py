@@ -80,7 +80,7 @@ def saveData(data,action, mycar,alldistances):
     data.append(row)
 
 def writedata(data):
-    file =open("py_shooter_data.csv",w)
+    file =open("py_shooter_data.csv","w")
     for d in data:
         str = ""
         for c in d :
