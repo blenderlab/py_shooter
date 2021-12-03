@@ -1,6 +1,6 @@
 import pygame
 
-FRAME_RATE = 30
+FRAME_RATE = 2
 
 # screen size : 
 WIDTH = 600

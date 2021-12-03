@@ -52,14 +52,14 @@ class ennemyCar(Car) :
         self.reset()
         
     def move(self):
-        self.y=self.y+5
+        self.y=self.y+59 #move by steps ...
         if self.y>HEIGHT :
             self.reset()
     
     def reset(self):
         nbRoads = (WIDTH//80)
         posx = random.randint(0,nbRoads-1)*80
-        posy = random.randint(-300,-self.height)
+        posy = -self.height * random.randint(1,30)
         self.x= posx
         self.y = posy
     
