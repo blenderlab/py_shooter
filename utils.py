@@ -38,15 +38,22 @@ def countEnnemies(column,ennemies):
                     closest = ennemy.y
     return(closest,tot_ennemies) 
     
-def chooseNextMove(mycar,ennemies):
+def chooseNextMove(mycar,ennemies,model=None):
      """
         Main algorithm to chose the best move
         return the ACTION to perform & ennemies count left,front, rigth  
      """
+     
      left_closest, left_tot = countEnnemies(mycar.x-80,ennemies)
      right_closest, right_tot = countEnnemies(mycar.x+80,ennemies)
      stay_closest, stay_tot = countEnnemies(mycar.x,ennemies)
      allDistances=[left_closest,stay_closest,right_closest]
+     
+     if MODE=="AI" :
+         evaluation = [mycar.x,left_closest,right_closest,stay_closest]
+         action = model.predict([evaluation])
+         print(action)
+         return (action,allDistances)
      
      if (stay_closest==0):
          return ("stay",allDistances)

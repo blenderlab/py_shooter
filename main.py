@@ -1,14 +1,13 @@
 import pygame
+from tensorflow import keras
+
 from  settings import * 
 from  utils import *
 import random 
 
 pygame.init()
 pygame.display.set_caption("Racing with an AI")
-
 SCREEN = initialiseScreen()
-
-# define the clock :
 clock = pygame.time.Clock()
 
 # let's create our brand new car !
@@ -18,11 +17,19 @@ my_car = myCar(80*3, HEIGHT*0.8)
 ennemies = [] # array of ennemies
 for _ in range(MAX_ENNEMIES):
     ennemies.append(ennemyCar())
-data=[]
+
+if MODE == "AUTO":
+    """ initialize data to learn """
+    AIModel=""
+    data=[]
+else :
+    AIModel = keras.models.load_model(MODELNAME)
+    
+
 sampleCounter=0
 while 1 :
     # manage the speed :
-    if MODE = "AUTO" :
+    if MODE == "AUTO" :
         clock.tick(FRAME_RATE_AUTO)
     else :
         clock.tick(FRAME_RATE_AI)
@@ -40,17 +47,24 @@ while 1 :
                 raise SystemExit #for a system close  
     
     # Autopilot (sort of...) 
-    nextAction,alldistances = chooseNextMove(my_car,ennemies)    
-    saveData(data,nextAction, my_car,alldistances)
+    
+    if MODE == "AI":
+        """ AI Mode : test our model"""
+        nextAction = chooseNextMove(my_car,ennemies,AIModel)    
+    else :
+        """ AUTO Mode : learn with our algorithm """
+        nextAction = chooseNextMove(my_car,ennemies)    
+    
+        saveData(data,nextAction, my_car,alldistances)
+
+        # check counter before saving data : 
+        if sampleCounter == SAMPLES:
+            writedata(data)
+        else :
+            sampleCounter=sampleCounter+1
+            print("Sample  ",sampleCounter, "/", SAMPLES) 
     
     my_car.move(nextAction)
-    
-    # check counter before saving data : 
-    if sampleCounter == SAMPLES:
-        writedata(data)
-    else :
-        sampleCounter=sampleCounter+1
-        print("Sample  ",sampleCounter, "/", SAMPLES) 
     
     # fill the screen with black : 
     SCREEN.fill(0)

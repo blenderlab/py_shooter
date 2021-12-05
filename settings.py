@@ -2,7 +2,7 @@ import pygame
 
 
 
-MODE = "AUTO" # or "AI"
+MODE = "AI" # or "AI"
 
 
 # screen size : 
