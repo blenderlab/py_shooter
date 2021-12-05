@@ -86,7 +86,7 @@ def writedata(data):
         for c in d :
             l=l+str(c)
             l=l+","
-        file.write(l)
+        file.write(l+'\n')
     file.close()
             
     

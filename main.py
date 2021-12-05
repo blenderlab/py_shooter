@@ -40,7 +40,7 @@ while 1 :
     saveData(data,nextAction, my_car,alldistances)
     my_car.move(nextAction)
     
-    if sampleCounter == 2000:
+    if sampleCounter == 20000:
         writedata(data)
     else :
         sampleCounter=sampleCounter+1
