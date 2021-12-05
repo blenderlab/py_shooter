@@ -3,6 +3,7 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
+from  settings import * 
 
 
 # load the dataset
@@ -11,7 +12,7 @@ y_train=[]
 x_test=[]
 y_test=[]
 
-file = open("py_shooter_data.csv","r")
+file = open(FILENAME,"r")
 csvReader = csv.reader(file)
 for row  in csvReader :
     x_train.append([int(row[0]),int(row[1]),int(row[2]),int(row[3])])        
@@ -39,4 +40,4 @@ model_history = model.fit(x_train,y_train,batch_size=50,epochs=10,validation_dat
 
 model.evaluate(x_test,y_test,batch_size=1)
 
-model.save("py_shooter.h5")
+model.save(MODELNAME)

@@ -1,26 +1,32 @@
 import pygame
 from settings import *
-import random 
-# Function to start screen
+import random
+
+
 def initialiseScreen():
+    """Function to start screen"""
     SCREEN = pygame.display.set_mode((WIDTH,HEIGHT))
     pygame.display.flip()
     return SCREEN
 
 def drawMycar(s,mycar):
+    """ Putting player car on screen"""
     s.blit(MYCARPIX, (mycar.x, mycar.y) ) 
 
 
 def drawOtherCars(s,cars):
+    """ Drawing ennemies on screen """
     for car in cars :
         s.blit(ENNEMYPIX, (car.x, car.y) )
         
 def moveEnnemies(cars):
+    """ Apply move restults to each ennemy """
     for car in cars :
         car.move()
-# Class for a CAR
+
 
 def countEnnemies(column,ennemies):
+    """ Return the closest enemy distance, and the total in a column """ 
     tot_ennemies = 0
     closest = 0
     colx= column 
@@ -33,10 +39,10 @@ def countEnnemies(column,ennemies):
     return(closest,tot_ennemies) 
     
 def chooseNextMove(mycar,ennemies):
-     # trying a random move :
-     #actions =  ["left","right","stay"]
-     #action = random.choice(actions)
-     # count ennemies around : 
+     """
+        Main algorithm to chose the best move
+        return the ACTION to perform & ennemies count left,front, rigth  
+     """
      left_closest, left_tot = countEnnemies(mycar.x-80,ennemies)
      right_closest, right_tot = countEnnemies(mycar.x+80,ennemies)
      stay_closest, stay_tot = countEnnemies(mycar.x,ennemies)
@@ -67,7 +73,14 @@ def chooseNextMove(mycar,ennemies):
          else :
              return ("stay",allDistances)
          
+         
 def saveData(data,action, mycar,alldistances):
+    """ Appending game data to the DATA object
+        0 - position of player (x only)
+        1 - ennemy distance on the left column
+        2 - ennemy distance on the center column
+        3 - ennemy distance on the right column
+    """
     if action=="left" : idx = 1
     if action=="stay" : idx = 2
     if action=="right" : idx = 3
@@ -80,7 +93,8 @@ def saveData(data,action, mycar,alldistances):
     data.append(row)
 
 def writedata(data):
-    file =open("py_shooter_data.csv","w")
+    """ saving DATA to a CSV file"""
+    file =open(FILENAME,"w")
     for d in data:
         l = ""
         for c in d :
@@ -91,10 +105,11 @@ def writedata(data):
             
     
 def draw_vertical_lines(screen):
+    """ TODO : draw lines/columns/counters to be more explicit  """
     pass
 
 class Car:
-    
+    """ Generic CAR class """
     def __init__(self,x,y):
         self.x = x
         self.y = y
@@ -103,7 +118,7 @@ class Car:
     
     
 class myCar(Car):
-    
+    """ player class, inherit from CAR """
     def __init__(self, x, y):
         super().__init__(x,y)
     
@@ -115,17 +130,21 @@ class myCar(Car):
             
     
 class ennemyCar(Car) :
+    """ Ennemy car class, with some restriction in move"""
+    
     
     def __init__(self):
         super().__init__(0,0)
         self.reset()
         
     def move(self):
+        """ TODO : merge the move towards the parent class """
         self.y=self.y+59 #move by steps ...
         if self.y>HEIGHT :
             self.reset()
     
     def reset(self):
+        """ respawn ennemy """
         nbRoads = (WIDTH//80)
         posx = random.randint(0,nbRoads-1)*80
         posy = -self.height * random.randint(1,30)

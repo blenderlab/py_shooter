@@ -22,7 +22,11 @@ data=[]
 sampleCounter=0
 while 1 :
     # manage the speed :
-    clock.tick(FRAME_RATE)
+    if MODE = "AUTO" :
+        clock.tick(FRAME_RATE_AUTO)
+    else :
+        clock.tick(FRAME_RATE_AI)
+    
     # force all events to be processed : 
     pygame.event.pump()
     for event in pygame.event.get():
