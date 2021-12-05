@@ -36,18 +36,22 @@ while 1 :
                 raise SystemExit #for a system close  
     
     # Autopilot (sort of...) 
-    nextAction,alldistances = chooseNextMove(my_car,ennemies)
+    nextAction,alldistances = chooseNextMove(my_car,ennemies)    
     saveData(data,nextAction, my_car,alldistances)
+    
     my_car.move(nextAction)
     
-    if sampleCounter == 20000:
+    # check counter before saving data : 
+    if sampleCounter == SAMPLES:
         writedata(data)
     else :
         sampleCounter=sampleCounter+1
-        print("Sample  ",sampleCounter, "/2000") 
+        print("Sample  ",sampleCounter, "/", SAMPLES) 
     
     # fill the screen with black : 
     SCREEN.fill(0)
+    
+    # update screen :
     moveEnnemies(ennemies)
     drawMycar(SCREEN, my_car) # display my own ship
     drawOtherCars(SCREEN, ennemies) # and others tooo....

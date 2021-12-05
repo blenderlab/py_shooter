@@ -14,3 +14,6 @@ MYCARPIX = pygame.image.load("./data/ship.png")
 ENNEMYPIX = pygame.image.load("./data/ennemy.png")
 
 MAX_ENNEMIES=10
+
+#AI Settigns :
+SAMPLES = 20000
