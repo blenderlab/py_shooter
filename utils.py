@@ -1,7 +1,7 @@
 import pygame
 from settings import *
 import random
-
+import numpy as np
 
 def initialiseScreen():
     """Function to start screen"""
@@ -51,9 +51,13 @@ def chooseNextMove(mycar,ennemies,model=None):
      
      if MODE=="AI" :
          evaluation = [mycar.x,left_closest,right_closest,stay_closest]
-         action = model.predict([evaluation])
-         print(action)
-         return (action,allDistances)
+         results = model.predict([evaluation])
+         results=results[0].tolist()
+         rmax = max(results)
+         naction = results.index(rmax)
+         print(results,naction)
+
+         return (naction,allDistances)
      
      if (stay_closest==0):
          return ("stay",allDistances)

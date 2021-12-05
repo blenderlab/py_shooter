@@ -23,6 +23,6 @@ ENNEMYPIX = pygame.image.load("./data/ennemy.png")
 MAX_ENNEMIES=10
 
 #AI Settigns :
-SAMPLES = 500
+SAMPLES = 5000
 FILENAME = "py_shooter_data.csv"
 MODELNAME = "py_shooter.h5"
