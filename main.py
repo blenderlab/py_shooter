@@ -53,9 +53,9 @@ while 1 :
         nextAction = chooseNextMove(my_car,ennemies,AIModel)    
     else :
         """ AUTO Mode : learn with our algorithm """
-        nextAction = chooseNextMove(my_car,ennemies)    
+        nextAction,allDistances = chooseNextMove(my_car,ennemies)    
     
-        saveData(data,nextAction, my_car,alldistances)
+        saveData(data,nextAction, my_car,allDistances)
 
         # check counter before saving data : 
         if sampleCounter == SAMPLES:

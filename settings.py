@@ -2,7 +2,7 @@ import pygame
 
 
 
-MODE = "AI" # or "AI"
+MODE = "AUTO" # AUTO or "AI"
 
 
 # screen size : 
@@ -23,6 +23,6 @@ ENNEMYPIX = pygame.image.load("./data/ennemy.png")
 MAX_ENNEMIES=10
 
 #AI Settigns :
-SAMPLES = 20000
+SAMPLES = 500
 FILENAME = "py_shooter_data.csv"
 MODELNAME = "py_shooter.h5"

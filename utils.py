@@ -88,15 +88,25 @@ def saveData(data,action, mycar,alldistances):
         2 - ennemy distance on the center column
         3 - ennemy distance on the right column
     """
-    if action=="left" : idx = 1
-    if action=="stay" : idx = 2
-    if action=="right" : idx = 3
     row = []
     row.append(mycar.x)
     row.append(alldistances[0])
     row.append(alldistances[1])
     row.append(alldistances[2])
-    row.append(idx)
+    if action=="left" :
+        row.append(1)
+        row.append(0)
+        row.append(0)
+        
+    if action=="stay" :
+        row.append(0)
+        row.append(1)
+        row.append(0)
+        
+    if action=="right" :
+        row.append(0)
+        row.append(0)
+        row.append(1)
     data.append(row)
 
 def writedata(data):
